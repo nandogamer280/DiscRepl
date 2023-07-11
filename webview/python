@@ -1,0 +1,18 @@
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/start')
+def start():
+    return 'Projeto iniciado'
+
+@app.route('/')
+def index():
+    from datetime import datetime, timedelta
+    ping = datetime.utcnow() - timedelta(hours=3)
+    return f'Ping recebido às {ping.hour}:{ping.minute}:{ping.second}'
+
+if __name__ == '__main__':
+    import os
+    port = int(os.environ.get('PORT', 8080))
+    app.run(host='0.0.0.0', port=port)
